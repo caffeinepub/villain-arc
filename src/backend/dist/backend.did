@@ -1,0 +1,123 @@
+type Timestamp = int;
+type TheoryMatchResult = 
+ record {
+   confidence: nat;
+   explanation: text;
+   matchedCaseIds: vec CaseId;
+   theoryId: TheoryId;
+   theoryName: text;
+ };
+type TheoryId = text;
+type Theory = 
+ record {
+   description: text;
+   id: TheoryId;
+   keyTheorists: vec text;
+   keywords: vec text;
+   name: text;
+ };
+type SessionSummary = 
+ record {
+   cardsReviewed: nat;
+   dueCount: nat;
+   nextReviewDates: vec Timestamp;
+   retentionPct: nat;
+   totalCards: nat;
+ };
+type ReviewQuality = 
+ variant {
+   Known;
+   NeedsReview;
+ };
+type Milestone = 
+ variant {
+   Associate;
+   Bachelor;
+   Licensure;
+   Master;
+ };
+type JournalPage = 
+ record {
+   entries: vec JournalEntry;
+   page: nat;
+   pageSize: nat;
+   totalCount: nat;
+ };
+type JournalEntryInput = 
+ record {
+   body: text;
+   caseRefs: vec CaseId;
+   tags: vec text;
+   theoryRefs: vec TheoryId;
+   title: text;
+ };
+type JournalEntryId = nat;
+type JournalEntry = 
+ record {
+   body: text;
+   caseRefs: vec CaseId;
+   createdAt: Timestamp;
+   id: JournalEntryId;
+   tags: vec text;
+   theoryRefs: vec TheoryId;
+   title: text;
+   updatedAt: Timestamp;
+ };
+type Flashcard = 
+ record {
+   answer: text;
+   category: CardCategory;
+   hint: text;
+   id: CardId;
+   question: text;
+ };
+type CrimeCategory = text;
+type CaseId = nat;
+type Case = 
+ record {
+   alias: text;
+   category: CrimeCategory;
+   dsmProfile: text;
+   id: CaseId;
+   name: text;
+   notoriety: nat;
+   quotes: vec text;
+   severity: nat;
+   summary: text;
+   theories: vec TheoryId;
+   year: nat;
+ };
+type CardId = nat;
+type CardCategory = 
+ variant {
+   Cases;
+   Disorders;
+   ResearchMethods;
+   Studies;
+   Terminology;
+   Terms;
+   Theorists;
+ };
+service : {
+  createJournalEntry: (input: JournalEntryInput) -> (JournalEntry);
+  deleteJournalEntry: (id: JournalEntryId) -> (bool);
+  getCase: (id: CaseId) -> (opt Case) query;
+  getDueCards: () -> (vec Flashcard);
+  getJournalEntry: (id: JournalEntryId) -> (opt JournalEntry) query;
+  getJournalMilestone: () -> (Milestone) query;
+  getSessionSummary: () -> (SessionSummary);
+  getTheory: (id: TheoryId) -> (opt Theory) query;
+  listCards: () -> (vec Flashcard) query;
+  listCardsByCategory: (category: CardCategory) -> (vec Flashcard) query;
+  listCases: () -> (vec Case) query;
+  listJournalEntries: (page: nat, pageSize: nat) -> (JournalPage) query;
+  listTheories: () -> (vec Theory) query;
+  matchTheories: (scenario: text) -> (vec TheoryMatchResult) query;
+  reviewCard: (cardId: CardId, quality: ReviewQuality) -> ();
+  searchCases: (name: opt text, category: opt text, yearFrom: opt nat,
+   yearTo: opt nat, minSeverity: opt nat) -> (vec Case) query;
+  searchJournalEntries: (fromDate: opt Timestamp, toDate: opt Timestamp, tag:
+   opt text, keyword: opt text) -> (vec JournalEntry) query;
+  updateJournalEntry: (id: JournalEntryId, input: JournalEntryInput) ->
+   (opt JournalEntry);
+}

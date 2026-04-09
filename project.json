@@ -1,0 +1,24 @@
+{
+  "overview": "Villain Arc is a luxury dark-academic criminal psychology learning tool for college students. It features curated criminal case dossiers, a theory matcher engine, SM-2 spaced-repetition flashcards, and a personal study journal — all wrapped in Celine-inspired editorial minimalism, fully on-chain via Internet Computer.",
+  "features": [
+    "Case File Explorer — landmark criminal case dossiers with DSM profiles, theories, and editorial summaries",
+    "Theory Matcher — backend rule engine ranks criminology theories against your crime scenario with confidence scores",
+    "Flashcard Quiz — SM-2 spaced repetition across terms, theorists, disorders, cases, and research methods",
+    "Study Journal — rich-text research log with tagging, search, and automatic degree milestone tracker",
+    "Internet Identity authentication — fully on-chain, no external cloud dependencies",
+    "Celine-inspired editorial design — Playfair Display, DM Sans, JetBrains Mono, 1px borders, no radius"
+  ],
+  "category": "education",
+  "tags": [
+    "criminal-psychology",
+    "dark-academic",
+    "flashcards",
+    "study-tool",
+    "icp",
+    "spaced-repetition",
+    "journal",
+    "case-studies",
+    "criminology"
+  ],
+  "last_updated": "2026-04-08T21:28:47.641Z"
+}

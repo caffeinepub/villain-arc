@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Instrument Serif";
+    --font-body: "Plus Jakarta Sans";
+    --font-mono: "JetBrains Mono";
+    --radius: 0;
+
+    --background: 0.98 0 0;
+    --foreground: 0.08 0 0;
+    --card: 0.95 0 0;
+    --card-foreground: 0.08 0 0;
+    --popover: 0.97 0 0;
+    --popover-foreground: 0.08 0 0;
+
+    --primary: 0.08 0 0;
+    --primary-foreground: 0.96 0 0;
+
+    --secondary: 0.9 0 0;
+    --secondary-foreground: 0.15 0 0;
+    --muted: 0.85 0 0;
+    --muted-foreground: 0.45 0 0;
+
+    --accent: 0.92 0 0;
+    --accent-foreground: 0.08 0 0;
+
+    --destructive: 0.5 0.15 24;
+    --destructive-foreground: 0.96 0 0;
+
+    --border: 0.2 0 0;
+    --input: 0.2 0 0;
+    --ring: 0.92 0 0;
+
+    --chart-1: 0.65 0.22 40;
+    --chart-2: 0.6 0.12 185;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.15 0 0;
+    --sidebar-primary: 0.35 0 0;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.95 0 0;
+    --sidebar-accent-foreground: 0.25 0 0;
+    --sidebar-border: 0.9 0 0;
+    --sidebar-ring: 0.35 0 0;
+  }
+
+  .dark {
+    --background: 0.08 0 0;
+    --foreground: 0.96 0 0;
+    --card: 0.12 0 0;
+    --card-foreground: 0.96 0 0;
+    --popover: 0.15 0 0;
+    --popover-foreground: 0.96 0 0;
+
+    --primary: 0.88 0 0;
+    --primary-foreground: 0.08 0 0;
+
+    --secondary: 0.18 0 0;
+    --secondary-foreground: 0.88 0 0;
+    --muted: 0.25 0 0;
+    --muted-foreground: 0.55 0 0;
+
+    --accent: 0.92 0 0;
+    --accent-foreground: 0.08 0 0;
+
+    --destructive: 0.5 0.15 24;
+    --destructive-foreground: 0.96 0 0;
+
+    --border: 0.2 0 0;
+    --input: 0.2 0 0;
+    --ring: 0.92 0 0;
+
+    --chart-1: 0.6 0.12 240;
+    --chart-2: 0.5 0.1 200;
+    --chart-3: 0.7 0.08 160;
+    --chart-4: 0.55 0.09 180;
+    --chart-5: 0.65 0.11 220;
+
+    --sidebar: 0.12 0 0;
+    --sidebar-foreground: 0.96 0 0;
+    --sidebar-primary: 0.88 0 0;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.25 0 0;
+    --sidebar-accent-foreground: 0.88 0 0;
+    --sidebar-border: 0.2 0 0;
+    --sidebar-ring: 0.92 0 0;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+}
+
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/assets/fonts/InstrumentSerif-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .fade-in {
+    animation: fade-in 0.4s ease-out;
+  }
+
+  .drift-up {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .drift-up:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    @apply border border-foreground bg-transparent text-foreground transition-smooth hover:bg-foreground hover:text-background;
+  }
+
+  .input-underline {
+    @apply border-0 border-b border-border bg-transparent px-0 py-2 text-foreground placeholder-muted-foreground focus:border-primary focus:outline-none transition-smooth;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes card-flip {
+    0% {
+      transform: rotateY(0deg);
+    }
+    100% {
+      transform: rotateY(180deg);
+    }
+  }
+
+  .card-flip {
+    animation: card-flip 0.3s ease-out;
+  }
+
+  .loading-bar {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      oklch(var(--primary)) 0%,
+      oklch(var(--accent)) 50%,
+      oklch(var(--primary)) 100%
+    );
+    animation: loading-bar 1.5s ease-in-out infinite;
+  }
+
+  @keyframes loading-bar {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+}

@@ -1,0 +1,126 @@
+// Version: 1.0.0
+type CardCategory__89671859 =
+  {
+    #Cases;
+    #Disorders;
+    #ResearchMethods;
+    #Studies;
+    #Terminology;
+    #Terms;
+    #Theorists
+  };
+type CardId__427529015 = Nat;
+type CardProgress__134266840 =
+  {
+    cardId : CardId__427529015;
+    easeFactor : Float;
+    intervalDays : Nat;
+    lastReviewed : Timestamp__301639476;
+    nextReview : Timestamp__301639476;
+    repetitions : Nat
+  };
+type CaseId__475917969 = Nat;
+type Case__874865401 =
+  {
+    alias : Text;
+    category : CrimeCategory__888015911;
+    dsmProfile : Text;
+    id : CaseId__475917969;
+    name : Text;
+    notoriety : Nat;
+    quotes : [Text];
+    severity : Nat;
+    summary : Text;
+    theories : [TheoryId__826066815];
+    year : Nat
+  };
+type CrimeCategory__888015911 = Text;
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type Flashcard__668073605 =
+  {
+    answer : Text;
+    category : CardCategory__89671859;
+    hint : Text;
+    id : CardId__427529015;
+    question : Text
+  };
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type JournalEntryId__890919642 = Nat;
+type JournalEntry__526826330 =
+  {
+    body : Text;
+    caseRefs : [CaseId__475917969];
+    createdAt : Timestamp__301639476;
+    id : JournalEntryId__890919642;
+    tags : [Text];
+    theoryRefs : [TheoryId__826066815];
+    title : Text;
+    updatedAt : Timestamp__301639476
+  };
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type List__415060402<T> = List__790383201<T>;
+type List__790383201<T> =
+  {
+    var blockIndex : Nat__490723111;
+    var blocks : [var [var ?T]];
+    var elementIndex : Nat__490723111
+  };
+type Map__158565046<K, V> = Map__297112838<K, V>;
+type Map__297112838<K, V> =
+  {var root : Node__46230540<K, V>; var size : Nat__490723111};
+type Map__605269027<K, V> = Map__158565046<K, V>;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type TheoryId__826066815 = Text;
+type Theory__886883392 =
+  {
+    description : Text;
+    id : TheoryId__826066815;
+    keyTheorists : [Text];
+    keywords : [Text];
+    name : Text
+  };
+type Timestamp__301639476 = Int;
+actor {
+  stable cards :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Flashcard__668073605]];
+      var elementIndex : Nat__490723111
+    };
+  stable cases :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Case__874865401]];
+      var elementIndex : Nat__490723111
+    };
+  stable journal :
+    {
+      var root :
+        Node__46230540<Principal, List__415060402<JournalEntry__526826330>>;
+      var size : Nat__490723111
+    };
+  stable journalIds :
+    {
+      var root : Node__46230540<Principal, JournalEntryId__890919642>;
+      var size : Nat__490723111
+    };
+  stable quizProgress :
+    {
+      var root :
+        Node__46230540<Principal,
+                        Map__605269027<CardId__427529015,
+                                        CardProgress__134266840>>;
+      var size : Nat__490723111
+    };
+  stable theories :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Theory__886883392]];
+      var elementIndex : Nat__490723111
+    }
+};
